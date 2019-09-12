@@ -12,6 +12,7 @@ dependencies:
   flare_flutter: ^1.5.8
   cupertino_icons: ^0.1.2
   after_layout: ^1.0.7+2
+  flutter_circular_chart: ^0.1.0
 
 dev_dependencies:
   flutter_test:
