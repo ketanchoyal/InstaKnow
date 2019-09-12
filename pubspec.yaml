@@ -1,0 +1,54 @@
+name: instaknown
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flare_flutter: ^1.5.8
+  cupertino_icons: ^0.1.2
+  after_layout: ^1.0.7+2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+
+  fonts:
+    - family: instagram
+      fonts:
+        - asset: assets/fonts/instagram.ttf
+
+    - family: Amaranth
+      fonts:
+        - asset: assets/fonts/Amaranth-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Amaranth-RegularItalic.ttf
+          weight: 500
+        - asset: assets/fonts/Amaranth-Bold.ttf
+          weight: 900
+        - asset: assets/fonts/Amaranth-BoldItalic.ttf
+          weight: 800
+
+    - family: Avenir
+      fonts:
+        - asset: assets/fonts/AvenirLTStd-Roman.otf
+        - asset: assets/fonts/AvenirLTStd-Medium.otf
+          weight: 500
+
+    - family: Feather
+      fonts:
+        - asset: assets/fonts/feather.ttf
+
+    - family: MyFlutterApp
+      fonts:
+        - asset: assets/fonts/MyFlutterApp.ttf
