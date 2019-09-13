@@ -1,10 +1,10 @@
 import 'dart:math';
-
 import 'package:after_layout/after_layout.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instaknown/UI/Pages/login_page.dart';
+import 'package:instaknown/UI/Pages/PieChartPage.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:instaknown/UI/Resources/Constants.dart' as R;
 import 'package:instaknown/UI/Resources/my_flutter_app_icons.dart';
 import 'package:instaknown/UI/Widgets/FloatingAppbar.dart';
@@ -18,6 +18,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with AfterLayoutMixin<HomePage>, TickerProviderStateMixin {
   CurvedAnimation curve;
+
+  GlobalKey stickyKey = GlobalKey();
 
   var buttonExpandedHeight = 0.0;
   var buttonExpandedWidth = 0.0;
@@ -336,6 +338,15 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  _findHeight() {
+    final keyContext = stickyKey.currentContext;
+    if (keyContext != null) {
+      // widget is visible
+      final box = keyContext.findRenderObject() as RenderBox;
+      return box.size.height;
+    }
+  }
+
   _buttonPublic() {
     return GestureDetector(
       onTap: () {
@@ -365,8 +376,9 @@ class _HomePageState extends State<HomePage>
               Radius.circular(0),
             ),
             border: Border.all(color: Colors.white, width: 1)),
-        child: isPublicButtonExpanded
+        child: pubilcButtonExpansionPercentage == 1
             ? Container(
+              color: Colors.white10,
                 child: Stack(
                   children: <Widget>[
                     // Username input
@@ -375,7 +387,8 @@ class _HomePageState extends State<HomePage>
                       right: 0,
                       left: 0,
                       child: Container(
-                        // color: Colors.red,
+                        key: stickyKey,
+                        color: Colors.redAccent,
                         padding: EdgeInsets.all(8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -457,6 +470,35 @@ class _HomePageState extends State<HomePage>
                         ),
                       ),
                     ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      top: _findHeight() ?? 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            height: 150,
+                            width: 150,
+                            child: GaugeChart(
+                              animate: false,
+                              color: charts.Color.fromHex(code: '#9F0A00'),
+                              percentage: 0.65,
+                            ),
+                          ),
+                          Container(
+                            height: 150,
+                            width: 150,
+                            child: GaugeChart(
+                              animate: false,
+                              color: charts.Color.fromHex(code: '#9F4e20'),
+                              percentage: 0.45,
+                            ),
+                          ),
+                          
+                        ],
+                      ),
+                    )
                   ],
                 ),
               )
