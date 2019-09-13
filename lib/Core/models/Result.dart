@@ -7,14 +7,14 @@ class Result {
   Result({this.name, this.picture, this.type, this.value});
 
   Result.fromJson(Map<String, dynamic> json) {
-    name = json['Name'];
-    picture = json['Picture'];
-    type = json['Type'];
-    value = json['Value'] != null ? new Value.fromJson(json['Value']) : null;
+    name = json['Name'] ?? '';
+    picture = json['Picture'] ?? '';
+    type = json['Type'] ?? '';
+    value = json['Value'] != null ? Value.fromJson(json['Value']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['Name'] = this.name;
     data['Picture'] = this.picture;
     data['Type'] = this.type;
@@ -41,7 +41,7 @@ class Value {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['Negative'] = this.negative;
     data['Neutral'] = this.neutral;
     data['Overall'] = this.overall;

@@ -1,21 +1,15 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_statusbarcolor (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios`)
-  - flutter_statusbarcolor (from `.symlinks/plugins/flutter_statusbarcolor/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: ".symlinks/flutter/ios"
-  flutter_statusbarcolor:
-    :path: ".symlinks/plugins/flutter_statusbarcolor/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_statusbarcolor: 8afb1071ed8c58be929f1e32b36c629771fd2259
 
 PODFILE CHECKSUM: 10ae9c18d12c9ffc2275c9a159a3b1e281990db0
 
