@@ -1,37 +1,54 @@
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
+import 'package:instaknown/UI/Resources/Constants.dart' as R;
 
 class GaugeChart extends StatelessWidget {
   final bool animate;
-  final charts.Color color;
+  final Color color;
   final double percentage;
+  final bool isPrivate;
 
   GaugeChart({
     this.animate,
     this.color,
     this.percentage,
+    this.isPrivate = false,
   });
-
-  /// Creates a [PieChart] with sample data and no transition.
-  factory GaugeChart.withSampleData() {
-    return new GaugeChart(
-      // _createSampleData(),
-      // Disable animations for image tests.
-      animate: true,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    return new charts.PieChart(
-      _createSampleData(),
-      animate: animate,
-      defaultInteractions: false,
-      defaultRenderer: charts.ArcRendererConfig(
-        arcWidth: 20,
-        startAngle: 7.5 / 5 * pi,
-        arcLength: 10 / 5 * pi * percentage,
+    var p = percentage * 100;
+    return Container(
+      height: 150,
+      width: 150,
+      child: Center(
+        child: Stack(
+          children: <Widget>[
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                p.toString() + '%',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: R.avenirFontFamily,
+                  fontSize: 16,
+                  color: isPrivate ? Colors.black : Colors.white,
+                ),
+              ),
+            ),
+            charts.PieChart(
+              _createSampleData(),
+              animate: animate,
+              defaultInteractions: false,
+              defaultRenderer: charts.ArcRendererConfig(
+                arcWidth: 20,
+                startAngle: 7.5 / 5 * pi,
+                arcLength: 10 / 5 * pi * percentage,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -39,10 +56,11 @@ class GaugeChart extends StatelessWidget {
   /// Create one series with sample hard coded data.
   List<charts.Series<GaugeSegment, String>> _createSampleData() {
     final data = [
-      // new GaugeSegment('Low', 75),
-      // new GaugeSegment('Acceptable', 100),
-      new GaugeSegment('', 1, color),
-      // new GaugeSegment('Highly Unusual', 5),
+      new GaugeSegment(
+          '',
+          1,
+          charts.Color.fromHex(
+              code: "#" + color.value.toRadixString(16).substring(2))),
     ];
 
     return [

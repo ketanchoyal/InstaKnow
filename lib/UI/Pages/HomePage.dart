@@ -3,10 +3,11 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instaknown/UI/Pages/PieChartPage.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:instaknown/UI/Pages/PrivateAccount.dart';
+import 'package:instaknown/UI/Pages/PublicAccount.dart';
 import 'package:instaknown/UI/Resources/Constants.dart' as R;
 import 'package:instaknown/UI/Resources/my_flutter_app_icons.dart';
+import 'package:instaknown/UI/Widgets/EmojiContainer.dart';
 import 'package:instaknown/UI/Widgets/FloatingAppbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,8 +19,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with AfterLayoutMixin<HomePage>, TickerProviderStateMixin {
   CurvedAnimation curve;
-
-  GlobalKey stickyKey = GlobalKey();
 
   var buttonExpandedHeight = 0.0;
   var buttonExpandedWidth = 0.0;
@@ -125,7 +124,8 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     buttonExpandedHeight = MediaQuery.of(context).size.height -
         MediaQuery.of(context).size.height * .075 -
-        210;
+        MediaQuery.of(context).size.height * .075 -
+        130;
 
     buttonExpandedWidth = MediaQuery.of(context).size.width * 0.9 -
         MediaQuery.of(context).size.width * 0.40;
@@ -138,15 +138,15 @@ class _HomePageState extends State<HomePage>
             _buildBacgroundEmoji(context),
             _buildInstructions(context),
             Positioned(
-              bottom: 90 +
-                  10 * privateButtonExpansionPercentage -
+              bottom: MediaQuery.of(context).size.height * 0.105 +
+                  5 * privateButtonExpansionPercentage -
                   60 * pubilcButtonExpansionPercentage,
               left: MediaQuery.of(context).size.width * .05 / 2,
               child: _buttonPrivate(),
             ),
             Positioned(
-              bottom: 90 +
-                  10 * pubilcButtonExpansionPercentage -
+              bottom: MediaQuery.of(context).size.height * 0.105 +
+                  5 * pubilcButtonExpansionPercentage -
                   60 * privateButtonExpansionPercentage,
               right: MediaQuery.of(context).size.width * .05 / 2,
               child: _buttonPublic(),
@@ -157,6 +157,98 @@ class _HomePageState extends State<HomePage>
             )
           ],
         ),
+      ),
+    );
+  }
+
+  _buttonPrivate() {
+    return GestureDetector(
+      onTap: () {
+        if (!isPrivateButtonExpanded)
+          animatePrivateButton(!isPrivateButtonExpanded);
+      },
+      onPanDown: (_) => animationControllerPrivateButton?.stop(),
+      onVerticalDragUpdate: onPrivateButtonVerticalDragUpdate,
+      onVerticalDragEnd: (_) {
+        _dispatchPrivateButtonOffset();
+      },
+      onVerticalDragCancel: () {
+        _dispatchPrivateButtonOffset();
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width * .45 +
+            buttonExpandedWidth * privateButtonExpansionPercentage +
+            buttonExpandedWidth * pubilcButtonExpansionPercentage,
+        height: MediaQuery.of(context).size.height * .075 +
+            buttonExpandedHeight * privateButtonExpansionPercentage -
+            MediaQuery.of(context).size.height *
+                .01 *
+                pubilcButtonExpansionPercentage,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(0),
+            ),
+            border: Border.all(color: Colors.white, width: 1)),
+        child: privateButtonExpansionPercentage == 1
+            ? PrivateAccount()
+            : Center(
+                child: Text(
+                  "Private",
+                  style: TextStyle(
+                    fontFamily: R.avenirFontFamily,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 18,
+                    color: Colors.grey[900],
+                  ),
+                ),
+              ),
+      ),
+    );
+  }
+
+  _buttonPublic() {
+    return GestureDetector(
+      onTap: () {
+        if (!isPublicButtonExpanded)
+          animatePubilcButton(!isPublicButtonExpanded);
+      },
+      onPanDown: (_) => animationControllerPubilcButton?.stop(),
+      onVerticalDragUpdate: onPubilcButtonVerticalDragUpdate,
+      onVerticalDragEnd: (_) {
+        _dispatchPublicButtonOffset();
+      },
+      onVerticalDragCancel: () {
+        _dispatchPublicButtonOffset();
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width * .45 +
+            buttonExpandedWidth * pubilcButtonExpansionPercentage +
+            buttonExpandedWidth * privateButtonExpansionPercentage,
+        height: MediaQuery.of(context).size.height * .075 +
+            buttonExpandedHeight * pubilcButtonExpansionPercentage -
+            MediaQuery.of(context).size.height *
+                .01 *
+                privateButtonExpansionPercentage,
+        decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.all(
+              Radius.circular(0),
+            ),
+            border: Border.all(color: Colors.white, width: 1)),
+        child: pubilcButtonExpansionPercentage == 1
+            ? new PublicAccount()
+            : Center(
+                child: Text(
+                  "Public",
+                  style: TextStyle(
+                    fontFamily: R.avenirFontFamily,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
       ),
     );
   }
@@ -207,20 +299,24 @@ class _HomePageState extends State<HomePage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  _buildEmojiContainer(EmojiIcon.emo_angry, Colors.black),
-                  _buildEmojiContainer(EmojiIcon.emo_happy, Colors.lightGreen),
-                  _buildEmojiContainer(EmojiIcon.emo_laugh, Colors.purple),
-                  _buildEmojiContainer(EmojiIcon.emo_unhappy, Colors.red),
+                  EmojiContainer(
+                      icon: EmojiIcon.emo_angry, color: Colors.black),
+                  EmojiContainer(
+                      icon: EmojiIcon.emo_happy, color: Colors.lightGreen),
+                  EmojiContainer(
+                      icon: EmojiIcon.emo_laugh, color: Colors.purple),
+                  EmojiContainer(
+                      icon: EmojiIcon.emo_unhappy, color: Colors.red),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _buildEmojiContainer(
-                      EmojiIcon.emo_wink2, Colors.yellowAccent),
-                  _buildEmojiContainer(EmojiIcon.emo_grin, Colors.green),
-                  _buildEmojiContainer(
-                      EmojiIcon.emo_displeased, Colors.redAccent),
+                  EmojiContainer(
+                      icon: EmojiIcon.emo_wink2, color: Colors.amberAccent),
+                  EmojiContainer(icon: EmojiIcon.emo_grin, color: Colors.green),
+                  EmojiContainer(
+                      icon: EmojiIcon.emo_displeased, color: Colors.redAccent),
                 ],
               ),
               Container(
@@ -256,10 +352,10 @@ class _HomePageState extends State<HomePage>
 
   _buildBacgroundEmoji(BuildContext context) {
     return Positioned(
-      right: -145 +
+      right: -MediaQuery.of(context).size.width * 0.35 +
           (MediaQuery.of(context).size.width * 0.25) *
               pubilcButtonExpansionPercentage,
-      bottom: -150 +
+      bottom: -MediaQuery.of(context).size.height * 0.16 +
           (MediaQuery.of(context).size.height * 0.4) *
               pubilcButtonExpansionPercentage,
       child: Opacity(
@@ -278,241 +374,6 @@ class _HomePageState extends State<HomePage>
             animation: "Animations",
           ),
         ),
-      ),
-    );
-  }
-
-  _buildEmojiContainer(IconData icon, Color color) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: Icon(icon),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(50),
-        // border: Border.all(c)
-      ),
-    );
-  }
-
-  _buttonPrivate() {
-    return GestureDetector(
-      onTap: () {
-        if (!isPrivateButtonExpanded)
-          animatePrivateButton(!isPrivateButtonExpanded);
-      },
-      onPanDown: (_) => animationControllerPrivateButton?.stop(),
-      onVerticalDragUpdate: onPrivateButtonVerticalDragUpdate,
-      onVerticalDragEnd: (_) {
-        _dispatchPrivateButtonOffset();
-      },
-      onVerticalDragCancel: () {
-        _dispatchPrivateButtonOffset();
-      },
-      child: Container(
-        width: MediaQuery.of(context).size.width * .45 +
-            buttonExpandedWidth * privateButtonExpansionPercentage +
-            buttonExpandedWidth * pubilcButtonExpansionPercentage,
-        height: MediaQuery.of(context).size.height * .075 +
-            buttonExpandedHeight * privateButtonExpansionPercentage -
-            MediaQuery.of(context).size.height *
-                .01 *
-                pubilcButtonExpansionPercentage,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(0),
-            ),
-            border: Border.all(color: Colors.white, width: 1)),
-        child: Center(
-          child: Text(
-            "Private",
-            style: TextStyle(
-              fontFamily: R.avenirFontFamily,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
-              color: Colors.grey[900],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  _findHeight() {
-    final keyContext = stickyKey.currentContext;
-    if (keyContext != null) {
-      // widget is visible
-      final box = keyContext.findRenderObject() as RenderBox;
-      return box.size.height;
-    }
-  }
-
-  _buttonPublic() {
-    return GestureDetector(
-      onTap: () {
-        if (!isPublicButtonExpanded)
-          animatePubilcButton(!isPublicButtonExpanded);
-      },
-      onPanDown: (_) => animationControllerPubilcButton?.stop(),
-      onVerticalDragUpdate: onPubilcButtonVerticalDragUpdate,
-      onVerticalDragEnd: (_) {
-        _dispatchPublicButtonOffset();
-      },
-      onVerticalDragCancel: () {
-        _dispatchPublicButtonOffset();
-      },
-      child: Container(
-        width: MediaQuery.of(context).size.width * .45 +
-            buttonExpandedWidth * pubilcButtonExpansionPercentage +
-            buttonExpandedWidth * privateButtonExpansionPercentage,
-        height: MediaQuery.of(context).size.height * .075 +
-            buttonExpandedHeight * pubilcButtonExpansionPercentage -
-            MediaQuery.of(context).size.height *
-                .01 *
-                privateButtonExpansionPercentage,
-        decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.all(
-              Radius.circular(0),
-            ),
-            border: Border.all(color: Colors.white, width: 1)),
-        child: pubilcButtonExpansionPercentage == 1
-            ? Container(
-              color: Colors.white10,
-                child: Stack(
-                  children: <Widget>[
-                    // Username input
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      left: 0,
-                      child: Container(
-                        key: stickyKey,
-                        color: Colors.redAccent,
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              // height: 50,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  "Public Account......",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontFamily: R.avenirFontFamily,
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            TextField(
-                              style: TextStyle(
-                                fontSize: 22.0,
-                                color: Colors.white,
-                              ),
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                prefixIcon: Icon(
-                                  IconData(0xe8e9, fontFamily: 'Feather'),
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                                hintText: "Username",
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 32.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(
-                                    15.0,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white10,
-                                    width: 32.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              height: MediaQuery.of(context).size.height * .055,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(0),
-                                  ),
-                                  border: Border.all(
-                                      color: Colors.white, width: 1)),
-                              child: Center(
-                                child: Text(
-                                  "Analyse",
-                                  style: TextStyle(
-                                    fontFamily: R.avenirFontFamily,
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 18,
-                                    color: Colors.grey[900],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      top: _findHeight() ?? 100,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Container(
-                            height: 150,
-                            width: 150,
-                            child: GaugeChart(
-                              animate: false,
-                              color: charts.Color.fromHex(code: '#9F0A00'),
-                              percentage: 0.65,
-                            ),
-                          ),
-                          Container(
-                            height: 150,
-                            width: 150,
-                            child: GaugeChart(
-                              animate: false,
-                              color: charts.Color.fromHex(code: '#9F4e20'),
-                              percentage: 0.45,
-                            ),
-                          ),
-                          
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )
-            : Center(
-                child: Text(
-                  "Public",
-                  style: TextStyle(
-                    fontFamily: R.avenirFontFamily,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
       ),
     );
   }
