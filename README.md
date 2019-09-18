@@ -7,17 +7,19 @@
 
 # Screenshots
 
+## HomeScreen
+
+<img src="https://github.com/ketanchoyal/InstaKnow/raw/master/Screenshots/homeScreenDemo.gif" alt="HomeScreen"/>
+
+## App UI Demo
+
+<img src="https://github.com/ketanchoyal/InstaKnow/raw/master/Screenshots/UIDemo.gif" alt="UI Demo"/>
 
 
-## Getting Started
+## Public Profile Analyzer
 
-This project is a starting point for a Flutter application.
+<img src="https://github.com/ketanchoyal/InstaKnow/raw/master/Screenshots/public.png" alt="Public"/>
 
-A few resources to get you started if this is your first Flutter project:
+## Private Profile Analyzer
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://github.com/ketanchoyal/InstaKnow/raw/master/Screenshots/private.png" alt="Private"/>
