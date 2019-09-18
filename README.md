@@ -1,6 +1,13 @@
-# instaknown
+# Instaknown
 
-A new Flutter application.
+#### Flutter App Build usig machine Learning model which shows sentiments of instagram user by analysing their captions.
+
+#### I've used Provider + Get_it for State Management.
+### MVVM(Model-View-(View)Model) Architecture.
+
+# Screenshots
+
+
 
 ## Getting Started
 

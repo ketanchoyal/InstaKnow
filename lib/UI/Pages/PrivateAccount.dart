@@ -32,7 +32,7 @@ class _PrivateAccountState extends State<PrivateAccount> {
     }
   }
 
-  bool isUserFound = false;
+  bool isUserFound = true;
 
   TextEditingController username;
   TextEditingController password;
@@ -49,16 +49,20 @@ class _PrivateAccountState extends State<PrivateAccount> {
   }
 
   onAnlaysePressed(HomePageViewModel model) async {
-    Result result = await model.getSentimentsPrivate(
-      username: username.text,
-      password: password.text,
-      user: user.text,
-    );
-    if (result.type == 'Success') {
-      isUserFound = true;
-      this.result = result;
-    } else {
-      isUserFound = false;
+    if (username.text.trim().length > 0 &&
+        password.text.trim().length > 0 &&
+        user.text.trim().length > 0) {
+      Result result = await model.getSentimentsPrivate(
+        username: username.text,
+        password: password.text,
+        user: user.text,
+      );
+      if (result.type == 'Success') {
+        isUserFound = true;
+        this.result = result;
+      } else {
+        isUserFound = false;
+      }
     }
   }
 
@@ -302,7 +306,7 @@ class _PrivateAccountState extends State<PrivateAccount> {
                                   ? Container()
                                   : InkWell(
                                       onTap: () async {
-                                        // await onAnlaysePressed(model);
+                                        await onAnlaysePressed(model);
                                       },
                                       child: Container(
                                         width:

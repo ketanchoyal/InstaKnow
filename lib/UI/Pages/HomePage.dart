@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage>
             ),
             FloatingAppbar(
               fontSize: 23,
-              title: 'Sentiment Analyzer',
+              title: 'Insta Know',
             )
           ],
         ),

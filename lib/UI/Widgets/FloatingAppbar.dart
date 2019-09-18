@@ -20,13 +20,12 @@ class FloatingAppbar extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Expanded(
-              child: Hero(
-                tag: 'titleee',
-                // transitionOnUserGestures: true,
-                child: Card(
-                  child: Container(
-                    height: 50,
-                    child: Center(
+              child: Card(
+                child: Container(
+                  height: 50,
+                  child: Center(
+                    child: Hero(
+                      tag: 'appName',
                       child: Text(title,
                           maxLines: 2,
                           textAlign: TextAlign.center,
@@ -42,19 +41,14 @@ class FloatingAppbar extends StatelessWidget {
                 ),
               ),
             ),
-            Hero(
-              tag: 'backkk',
-              transitionOnUserGestures: true,
-              child: Card(
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  child: RawMaterialButton(
-                    onPressed: () {
-                    },
-                    child: Icon(
-                      Icons.info,
-                    ),
+            Card(
+              child: Container(
+                height: 50,
+                width: 50,
+                child: RawMaterialButton(
+                  onPressed: () {},
+                  child: Icon(
+                    Icons.info,
                   ),
                 ),
               ),

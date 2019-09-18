@@ -44,12 +44,14 @@ class _PublicAccountState extends State<PublicAccount> {
   }
 
   onAnlaysePressed(HomePageViewModel model) async {
-    Result result = await model.getSentimentsPublic(user: username.text);
-    if (result.type == 'Success') {
-      isUserFound = true;
-      this.result = result;
-    } else {
-      isUserFound = false;
+    if (username.text.trim().length > 0) {
+      Result result = await model.getSentimentsPublic(user: username.text);
+      if (result.type == 'Success') {
+        isUserFound = true;
+        this.result = result;
+      } else {
+        isUserFound = false;
+      }
     }
   }
 
@@ -125,20 +127,23 @@ class _PublicAccountState extends State<PublicAccount> {
                                   ),
                                 ),
                               ),
-                              isUserFound ? Container() : Padding(
-                                padding: const EdgeInsets.only(left: 8,right: 8, bottom: 8),
-                                child: Text(
-                                  "Username doesn't exists or this user is Private...",
-                                  textAlign: TextAlign.start,
-                                  maxLines: 3,
-                                  style: TextStyle(
-                                    fontFamily: R.avenirFontFamily,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
+                              isUserFound
+                                  ? Container()
+                                  : Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 8, bottom: 8),
+                                      child: Text(
+                                        "Username doesn't exists or this user is Private...",
+                                        textAlign: TextAlign.start,
+                                        maxLines: 3,
+                                        style: TextStyle(
+                                          fontFamily: R.avenirFontFamily,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
                               result != null
                                   ? UserCard(
                                       url: result.picture,
@@ -149,9 +154,7 @@ class _PublicAccountState extends State<PublicAccount> {
                                   ? Container()
                                   : TextField(
                                       controller: username,
-                                      onChanged: (name) {
-
-                                      },
+                                      onChanged: (name) {},
                                       style: TextStyle(
                                         fontSize: 22.0,
                                         color: Colors.white,
