@@ -18,7 +18,7 @@ class GaugeChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var p = percentage * 100;
+    
     return Container(
       height: 150,
       width: 150,
@@ -28,7 +28,7 @@ class GaugeChart extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(
-                p.toString() + '%',
+                percentage.toString() + '%',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: R.avenirFontFamily,
@@ -44,7 +44,7 @@ class GaugeChart extends StatelessWidget {
               defaultRenderer: charts.ArcRendererConfig(
                 arcWidth: 20,
                 startAngle: 7.5 / 5 * pi,
-                arcLength: 10 / 5 * pi * percentage,
+                arcLength: 10 / 5 * pi * percentage / 100,
               ),
             ),
           ],
