@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:instaknown/UI/Pages/login_page.dart';
 import 'package:instaknown/UI/Resources/Constants.dart' as R;
 
 class FloatingAppbar extends StatelessWidget {
@@ -52,9 +51,6 @@ class FloatingAppbar extends StatelessWidget {
                   width: 50,
                   child: RawMaterialButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => LoginPage()
-                      ));
                     },
                     child: Icon(
                       Icons.info,
