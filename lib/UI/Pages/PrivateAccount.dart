@@ -361,7 +361,8 @@ class _PrivateAccountState extends State<PrivateAccount> {
                                                 animate: false,
                                                 isPrivate: true,
                                                 color: Colors.black,
-                                                percentage: 0.65,
+                                                percentage:
+                                                    result.value.negative,
                                               ),
                                               Row(
                                                 mainAxisAlignment:
@@ -397,7 +398,8 @@ class _PrivateAccountState extends State<PrivateAccount> {
                                                 animate: false,
                                                 color: Colors.purple,
                                                 isPrivate: true,
-                                                percentage: 0.35,
+                                                percentage:
+                                                    result.value.positive,
                                               ),
                                               Row(
                                                 mainAxisAlignment:
@@ -433,7 +435,7 @@ class _PrivateAccountState extends State<PrivateAccount> {
                                         GaugeChart(
                                           animate: false,
                                           color: Colors.lightGreen,
-                                          percentage: 0.85,
+                                          percentage: result.value.neutral,
                                           isPrivate: true,
                                         ),
                                         Row(

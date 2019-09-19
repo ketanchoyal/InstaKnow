@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instaknown/UI/Pages/AboutPage.dart';
 import 'package:instaknown/UI/Pages/HomePage.dart';
 import 'package:instaknown/UI/Pages/SplashScreen.dart';
 import 'package:instaknown/locator.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomePage.id: (context) => HomePage(),
         SplashScreen.id: (context) => SplashScreen(),
+        AboutPage.id: (context) => AboutPage(),
       },
       // initialRoute: SplashScreen.id,
       home: SplashScreen(),

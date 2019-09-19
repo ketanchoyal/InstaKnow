@@ -1,10 +1,15 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:instaknown/Core/Services/UrlHelper.dart';
 import 'package:instaknown/Core/models/Result.dart';
 
 class Api {
-  String _url = 'http://7755efc4.ngrok.io/requestjson';
+  // String _url = 'http://7755efc4.ngrok.io/requestjson';
+
+  UrlHelper urlHelper = UrlHelper();
+
+  Future<String> _url() async => urlHelper.getNewUrl();
 
   Map<String, String> _headers = {
     'Content-type': 'application/json',
@@ -20,13 +25,13 @@ class Api {
 
     print(body);
 
+    // String url = await _url();
+
     final response = await http.post(
-      _url,
+      await _url(),
       body: body,
       headers: _headers,
     );
-
-    
 
     if (response.statusCode == 200) {
       final jsonData = await json.decode(response.body);
@@ -49,7 +54,7 @@ class Api {
     print(body);
 
     final response = await http.post(
-      _url,
+      await _url(),
       body: body,
       headers: _headers,
     );
