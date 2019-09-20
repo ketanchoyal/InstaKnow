@@ -27,27 +27,28 @@ class UserCard extends StatelessWidget {
               height: 100,
               width: 100,
               decoration: BoxDecoration(
-                  color: Colors.yellow,
-                  // image: DecorationImage(
-                  //   image: NetworkImage(url)
-                  // ),
+                  // color: Colors.yellow,
+                  image: DecorationImage(
+                    image: NetworkImage(url)
+                  ),
                   shape: BoxShape.circle),
             ),
             Expanded(
               child: Stack(
                 children: <Widget>[
                   Align(
-                    alignment: Alignment.bottomLeft,
+                    alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 15),
                       child: Text(
-                        "User Name",
+                        username ?? "User Name",
                         textAlign: TextAlign.start,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: R.avenirFontFamily,
                           fontWeight: FontWeight.w800,
-                          fontSize: 20,
+                          fontSize: 22,
                           color: Colors.white,
                         ),
                       ),

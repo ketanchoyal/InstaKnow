@@ -9,8 +9,13 @@ class Result {
   Result.fromJson(Map<String, dynamic> json) {
     name = json['Name'] ?? '';
     picture = json['Picture'] ?? '';
-    type = json['Type'] ?? '';
-    value = json['Value'] != null ? Value.fromJson(json['Value']) : null;
+    type = json['Type'] ?? 'Fail';
+    value = json['Value'] != null
+        ? json['Value'] ==
+                'No captions found! Are you sure this profile is public and has posted?'
+            ? []
+            : Value.fromJson(json['Value'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

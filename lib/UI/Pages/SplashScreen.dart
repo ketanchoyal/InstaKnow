@@ -70,15 +70,18 @@ class _SplashScreenState extends State<SplashScreen> {
             left: 0,
             right: 0,
             top: 100.0 + MediaQuery.of(context).size.height / 2,
-            child: Text(
-              'InstaKnow',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 60,
-                fontFamily: R.instagramFontFamily,
-                color: Colors.white,
-                letterSpacing: 3,
-                fontWeight: FontWeight.w500,
+            child: Hero(
+              tag: 'appName',
+              child: Text(
+                'InstaKnow',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 60,
+                  fontFamily: R.instagramFontFamily,
+                  color: Colors.white,
+                  letterSpacing: 3,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
