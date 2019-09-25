@@ -17,6 +17,6 @@ class UrlHelper {
         await SharedPreferences.getInstance();
 
     return _sharedPreferences.getString(_serverUrl) ??
-        'http://7755efc4.ngrok.io/requestjson';
+        'http://99ff9d16.ngrok.io/requestjson';
   }
 }

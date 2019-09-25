@@ -131,6 +131,7 @@ class _HomePageState extends State<HomePage>
         MediaQuery.of(context).size.width * 0.40;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         bottom: false,
         child: Stack(
