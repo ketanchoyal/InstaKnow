@@ -4,6 +4,14 @@ import 'package:http/http.dart' as http;
 import 'package:instaknown/Core/Services/UrlHelper.dart';
 import 'package:instaknown/Core/models/Result.dart';
 
+const res = {
+  "Name": "Selena Gomez",
+  "Picture":
+      "https://instagram.fnag1-2.fna.fbcdn.net/vp/9c318cc8cc41e4812748ab373c60f016/5DFDDF3A/t51.2885-19/s320x320/52780205_395221154575465_269834356913078272_n.jpg?_nc_ht=instagram.fnag1-2.fna.fbcdn.net",
+  "Type": "Success",
+  "Value": {"Negative": 3.0, "Neutral": 79.0, "Overall": 27.0, "Positive": 17.0}
+};
+
 class Api {
   // String _url = 'http://7755efc4.ngrok.io/requestjson';
 
@@ -39,6 +47,7 @@ class Api {
       return result;
     } else {
       return Result();
+      // return Result.fromJson(res);
     }
   }
 

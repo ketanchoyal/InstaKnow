@@ -358,12 +358,12 @@ class _PrivateAccountState extends State<PrivateAccount> {
                                           child: Column(
                                             children: <Widget>[
                                               GaugeChart(
-                                                animate: false,
-                                                isPrivate: true,
-                                                color: Colors.black,
-                                                percentage:
-                                                    result.value.negative,
-                                              ),
+                                            colors: [
+                                              Colors.black,
+                                              Colors.black54
+                                            ],
+                                            percentage: result.value.negative,
+                                          ),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -395,12 +395,12 @@ class _PrivateAccountState extends State<PrivateAccount> {
                                           child: Column(
                                             children: <Widget>[
                                               GaugeChart(
-                                                animate: false,
-                                                color: Colors.purple,
-                                                isPrivate: true,
-                                                percentage:
-                                                    result.value.positive,
-                                              ),
+                                            colors: [
+                                              Colors.purple,
+                                              Colors.purpleAccent
+                                            ],
+                                            percentage: result.value.positive,
+                                          ),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -433,11 +433,12 @@ class _PrivateAccountState extends State<PrivateAccount> {
                                     Column(
                                       children: <Widget>[
                                         GaugeChart(
-                                          animate: false,
-                                          color: Colors.lightGreen,
-                                          percentage: result.value.neutral,
-                                          isPrivate: true,
-                                        ),
+                                        colors: [
+                                          Colors.lightGreen,
+                                          Colors.lightGreenAccent,
+                                        ],
+                                        percentage: result.value.neutral,
+                                      ),
                                         Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,

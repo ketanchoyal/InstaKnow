@@ -251,8 +251,11 @@ class _PublicAccountState extends State<PublicAccount> {
                                       Column(
                                         children: <Widget>[
                                           GaugeChart(
-                                            animate: false,
-                                            color: Colors.black,
+                                            colors: [
+                                              Colors.black,
+                                              Colors.black54,
+                                              Colors.white,
+                                            ],
                                             percentage: result.value.negative,
                                           ),
                                           Row(
@@ -279,8 +282,11 @@ class _PublicAccountState extends State<PublicAccount> {
                                       Column(
                                         children: <Widget>[
                                           GaugeChart(
-                                            animate: false,
-                                            color: Colors.purple,
+                                            colors: [
+                                              Colors.purple,
+                                              Colors.purpleAccent,
+                                              Colors.deepPurple,
+                                            ],
                                             percentage: result.value.positive,
                                           ),
                                           Row(
@@ -307,10 +313,17 @@ class _PublicAccountState extends State<PublicAccount> {
                                     ],
                                   ),
                                   Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
                                     children: <Widget>[
                                       GaugeChart(
-                                        animate: false,
-                                        color: Colors.lightGreen,
+                                        colors: [
+                                          Colors.lightGreen,
+                                          Colors.lightGreenAccent,
+                                          Colors.greenAccent.withOpacity(0.5)
+                                        ],
                                         percentage: result.value.neutral,
                                       ),
                                       Row(
