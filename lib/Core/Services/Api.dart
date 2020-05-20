@@ -46,8 +46,8 @@ class Api {
       Result result = Result.fromJson(jsonData);
       return result;
     } else {
-      return Result();
-      // return Result.fromJson(res);
+      // return Result();
+      return Result.fromJson(res);
     }
   }
 
